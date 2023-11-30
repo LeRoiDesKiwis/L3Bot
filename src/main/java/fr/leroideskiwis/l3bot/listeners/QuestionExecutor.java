@@ -1,5 +1,6 @@
 package fr.leroideskiwis.l3bot.listeners;
 
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 
 import java.util.Map;
@@ -11,5 +12,5 @@ public interface QuestionExecutor {
      * @param channel the channel where the questions were asked
      * @param questions the questions and answers
      */
-    void execute(MessageChannel channel, Map<String, String> questions);
+    void execute(Member member, MessageChannel channel, Map<String, String> questions);
 }

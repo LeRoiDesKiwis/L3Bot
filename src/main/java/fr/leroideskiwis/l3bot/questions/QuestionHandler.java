@@ -1,6 +1,7 @@
 package fr.leroideskiwis.l3bot.questions;
 
 import fr.leroideskiwis.l3bot.listeners.QuestionExecutor;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 
 import java.util.HashMap;
@@ -13,12 +14,14 @@ public class QuestionHandler {
     private final QuestionExecutor questionExecutor;
     private int index = 0;
     private final MessageChannel messageChannel;
+    private final Member member;
 
-    public QuestionHandler(MessageChannel channel, QuestionExecutor questionExecutor, Question... questions){
+    public QuestionHandler(MessageChannel channel, QuestionExecutor questionExecutor, Member member, Question... questions){
         this.questionExecutor = questionExecutor;
         this.questions = questions;
         this.answers = new String[questions.length];
         this.messageChannel = channel;
+        this.member = member;
     }
 
     public void sendQuestion(){
@@ -30,7 +33,7 @@ public class QuestionHandler {
         if(question.isType(type) && question.isValid(content)) {
             answers[index++] = question.parseAnswer(content);
             if(!isFinish()) sendQuestion();
-            else questionExecutor.execute(messageChannel, toMap());
+            else questionExecutor.execute(member, messageChannel, toMap());
         }
     }
 

@@ -21,7 +21,7 @@ public class QuestionListener extends ListenerAdapter {
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
         event.getMember().getUser().openPrivateChannel().queue(privateChannel -> {
             privateChannel.sendMessage("Bienvenue dans le serveur de L3 ! Répond à ces quelques questions pour que je puisse t'attribuer les bons rôles.").queue();
-            questionManager.addUser(privateChannel, event.getUser());
+            questionManager.addUser(privateChannel, event.getMember());
         });
     }
 
